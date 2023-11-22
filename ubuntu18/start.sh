@@ -1,4 +1,3 @@
-:<<'END'
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 export NVM_DIR="$HOME/.nvma"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -8,13 +7,9 @@ nvm --version
 
 #IN UBUNTU 18, Must Use node 17.xx.
 nvm install 17 
-END
 
 
 echo '
-
-
-
 parse_git_branch() {
     git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1)/"
 }
@@ -38,4 +33,4 @@ branch_color () {
 }
 export PS1="\[\e[01;32m\]\u@\h \[\e[34m\]\w\[\${c_sgr0}\]\[\$(branch_color)\]\$(parse_git_branch)\[\${c_sgr0}\]\$ "' >> ~/.bashrc
 
-
+#Need command source ~/.bashrc
