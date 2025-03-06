@@ -1,4 +1,5 @@
 #!/bin/bash
+# 자주 사용하는 lazyvim의 초기 설치 스크립트입니다. - mac, ubuntu 버전
 
 # ✅ OS 확인
 OS="$(uname -s)"
@@ -32,7 +33,21 @@ install_if_needed() {
         if [ "$OS" == "Darwin" ]; then
             brew install $package_mac
         elif [ "$OS" == "Linux" ]; then
-            sudo apt update && sudo apt install -y $package_ubuntu
+            if  [ $package_ubuntu == 'fzf' ]; then
+                git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+                ~/.fzf/install
+            elif [ $package_ubuntu == 'fd-find' ]
+                wget https://github.com/sharkdp/fd/releases/download/v8.4.0/fd_8.4.0_amd64.deb
+                sudo dpkg -i fd_8.4.0_amd64.deb
+            elif [ $package_ubuntu == 'neovim' ]
+                curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+                sudo rm -rf /opt/nvim
+                sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+                echo 'export PATH="$PATH:/opt/nvim-linux-x86_64/bin"' >> ~/.bashrc
+                source ~/.bashrc
+            else
+                sudo apt update && sudo apt install -y $package_ubuntu
+            fi
         fi
     fi
 }
